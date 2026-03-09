@@ -1,175 +1,186 @@
-# 📊 Customer Segmentation & Churn Prediction
+# 📊 Retail Customer Segmentation & Churn Prediction
 
-## 🔹 Project Overview
+End-to-end **Data Analytics & Machine Learning project** that analyzes retail transaction data to identify **customer segments** and predict **customer churn risk**.
 
-This project performs **customer segmentation** and **churn prediction** using the **Online Retail II dataset**.
-
-The goal is to:
-
-- Segment customers based on purchasing behavior using **RFM analysis**
-- Predict customer churn using supervised machine learning
-- Generate actionable business insights for retention strategies
+This project demonstrates a complete pipeline from **data cleaning → feature engineering → customer segmentation → churn prediction → business insights**.
 
 ---
 
-## 🔹 Business Problem
+# 🚀 Project Objectives
 
-Retail businesses need to:
+Retail businesses must understand customer behavior to improve retention and marketing efficiency.
 
-- Identify high-value customers
-- Detect customers at risk of churning
-- Allocate marketing resources efficiently
-- Improve customer lifetime value (CLV)
+This project aims to:
 
-This project provides a complete data-driven pipeline to address these challenges.
+- Identify **high-value customers**
+- Detect **customers at risk of churn**
+- Segment customers based on purchasing behavior
+- Provide **data-driven marketing strategies**
 
 ---
 
-## 🔹 Dataset
+# 📁 Dataset
 
 **Online Retail II Dataset**
 
-Contains transactional data including:
+Transactional dataset containing retail purchase records.
 
-- Invoice
-- StockCode
-- Quantity
-- InvoiceDate
-- Price
-- Customer ID
-- Country
+### Key Features
 
-Each row represents a transaction line item.
+- `Invoice` – Invoice number
+- `StockCode` – Product code
+- `Quantity` – Quantity purchased
+- `InvoiceDate` – Transaction date
+- `Price` – Unit price
+- `Customer ID` – Unique customer identifier
+- `Country` – Customer location
 
----
-
-## 🔹 Project Workflow
-
-### 1️⃣ Data Cleaning
-
-- Removed missing `Customer ID`
-- Removed duplicates using business keys
-- Removed cancellations and invalid transactions
-- Removed non-product stock codes (POST, D, M)
-- Converted data types correctly
-- Prevented data leakage
+Each row represents a **single transaction line item**.
 
 ---
 
-### 2️⃣ Feature Engineering (RFM)
+# ⚙️ Project Pipeline
 
-Created customer-level features:
+## 1️⃣ Data Cleaning
 
-- **Recency** – Days since last purchase
-- **Frequency** – Number of unique invoices
-- **Monetary** – Total spend
+Steps performed:
 
-Applied:
+- Removed missing **Customer IDs**
+- Removed **duplicate transactions**
+- Removed **cancelled invoices**
+- Removed **invalid price and quantity values**
+- Removed **non-product stock codes**
+- Fixed incorrect **data types**
 
-- Log transformation
-- Standard scaling
-
----
-
-### 3️⃣ Customer Segmentation (Unsupervised Learning)
-
-Algorithms tested:
-
-- K-Means (Primary)
-- Hierarchical Clustering (Validation)
-
-#### Optimal Clusters:
-
-K = 4 (based on Elbow Method & Silhouette Score)
-
-#### Final Segments:
-
-- 🏆 VIP Customers
-- 🔵 Active Regular Customers
-- 🟠 At-Risk Customers
-- 🔴 Lost Customers
+This ensures the dataset is reliable for analysis.
 
 ---
 
-### 4️⃣ Churn Prediction (Supervised Learning)
+## 2️⃣ Feature Engineering (RFM Analysis)
 
-Churn defined as:
+Customer behavior was summarized using **RFM metrics**:
 
-> No purchase in the last 180 days
+| Feature       | Description              |
+| ------------- | ------------------------ |
+| **Recency**   | Days since last purchase |
+| **Frequency** | Number of purchases      |
+| **Monetary**  | Total spending           |
 
-Models tested:
+Additional preprocessing:
+
+- Log transformation to reduce skew
+- Standard scaling for clustering algorithms
+
+---
+
+# 🔍 Customer Segmentation
+
+Customer segmentation was performed using **unsupervised machine learning**.
+
+### Algorithms Tested
+
+- K-Means Clustering
+- Hierarchical Clustering (validation)
+
+### Optimal Clusters
+
+Using:
+
+- **Elbow Method**
+- **Silhouette Score**
+
+The optimal number of clusters was:
+
+**K = 4**
+
+---
+
+## 📊 Customer Segments
+
+| Segment                         | Description                                |
+| ------------------------------- | ------------------------------------------ |
+| 🏆 **VIP Customers**            | High spending and loyal customers          |
+| 🔵 **Active Regular Customers** | Frequent buyers with moderate spending     |
+| 🟠 **At-Risk Customers**        | Previously active but declining engagement |
+| 🔴 **Lost Customers**           | Inactive customers with high churn risk    |
+
+These segments allow businesses to create **targeted marketing strategies**.
+
+---
+
+# 🤖 Churn Prediction
+
+Customer churn was defined as:
+
+> No purchase within the last **180 days**
+
+A binary churn label was created for supervised modeling.
+
+---
+
+## Models Evaluated
 
 - Logistic Regression
 - Random Forest
 - XGBoost
 
-⚠ Data leakage was identified and corrected by removing Recency from predictive features.
+### Model Performance
 
-#### Model Comparison
-
-| Model               | ROC-AUC | Recall (Churn) | F1-Score |
+| Model               | ROC-AUC | Recall (Churn) | F1 Score |
 | ------------------- | ------- | -------------- | -------- |
 | Logistic Regression | 0.78    | 0.65           | 0.65     |
 | Random Forest       | 0.69    | 0.58           | 0.57     |
 | XGBoost             | 0.75    | 0.64           | 0.63     |
 
-✅ Final Model: **Logistic Regression**
+### Final Model
 
-Reason:
+✅ **Logistic Regression**
 
-- Best ROC-AUC
-- Highest recall
-- Most interpretable
+Reasons:
+
+- Highest ROC-AUC
+- Highest Recall
+- Interpretable model
+- Lower risk of overfitting
 
 ---
 
-## 🔹 Key Insights
+# 📈 Key Business Insights
 
-| Segment        | Avg Monetary | Avg Churn Probability | Strategy              |
-| -------------- | ------------ | --------------------- | --------------------- |
-| VIP Customers  | Very High    | Very Low              | Retain & Upsell       |
-| Active Regular | Medium       | Moderate              | Engagement Campaigns  |
-| At-Risk        | High         | Moderate              | Immediate Retention   |
-| Lost           | Low          | High                  | Low-Cost Reactivation |
+| Segment        | Avg Spend | Churn Risk | Strategy                     |
+| -------------- | --------- | ---------- | ---------------------------- |
+| VIP Customers  | Very High | Very Low   | Loyalty rewards & upselling  |
+| Active Regular | Medium    | Moderate   | Engagement campaigns         |
+| At-Risk        | High      | Moderate   | Targeted retention campaigns |
+| Lost           | Low       | High       | Low-cost reactivation        |
 
-### 🔥 High-Value Customers at Risk
+---
+
+## 🔥 High-Value Customers at Risk
 
 Customers with:
 
-- High Monetary value
-- High churn probability
+- **High Monetary value**
+- **High churn probability**
 
-These represent the most important retention targets.
-
----
-
-## 🔹 Business Recommendations
-
-- Focus retention campaigns on **At-Risk Customers**
-- Use loyalty programs for **VIP Customers**
-- Use automated reactivation for **Lost Customers**
-- Optimize marketing spend using churn probability ranking
+These customers represent the **highest priority for retention strategies**.
 
 ---
 
-## 🔹 Technologies Used
+# 🛠 Technologies Used
 
 - Python
 - Pandas
 - NumPy
 - Scikit-learn
 - XGBoost
-- Matplotlib / Seaborn
+- Matplotlib
+- Seaborn
+- Jupyter Notebook
 
 ---
 
-## 🔹 How to Run
-
-1. Clone the repository
-2. Open folder in vs code
-3. Open Customer_Segmentation_and_Churn_Prediction.ipynb in run all.
-
-## 🔹 Project Structure
+# 📂 Project Structure
 
 ```
 .
@@ -180,31 +191,62 @@ These represent the most important retention targets.
 
 ---
 
-## 🔹 Learning Highlights
+# ▶️ How to Run
 
-- End-to-end ML pipeline
-- RFM-based segmentation
-- Clustering validation
-- Data leakage detection & correction
-- Model comparison framework
-- Business-driven ML interpretation
+### 1️⃣ Clone the repository
+
+```
+git clone https://github.com/nikhildhole/retail-crunch-segmentation.git
+```
+
+### 2️⃣ Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### 3️⃣ Open the notebook
+
+Run:
+
+```
+Customer_Segmentation_and_Churn_Prediction.ipynb
+```
 
 ---
 
-## 🔹 Future Improvements
+# 📚 Learning Highlights
 
-- Cross-validation
-- Threshold optimization
+This project demonstrates:
+
+- End-to-end **machine learning workflow**
+- **RFM-based customer segmentation**
+- **Unsupervised learning (K-Means)**
+- **Churn prediction modeling**
+- **Data leakage detection & prevention**
+- **Business-focused data science insights**
+
+---
+
+# 🔮 Future Improvements
+
+Possible extensions:
+
+- Cross-validation for model robustness
 - Hyperparameter tuning
-- SHAP interpretability
-- Deployment as a dashboard
+- SHAP model interpretability
+- Interactive dashboards (Power BI / Streamlit)
+- Real-time churn prediction API
 
 ---
 
 # 📌 Conclusion
 
-This project demonstrates a complete machine learning workflow:
+This project demonstrates how machine learning can help businesses:
 
-From raw transactional data → customer segmentation → churn prediction → business strategy.
+- Understand customer behavior
+- Predict churn risk
+- Improve customer retention
+- Optimize marketing strategies
 
-It combines technical rigor with business applicability.
+By combining **customer segmentation with churn prediction**, businesses can make **data-driven decisions to maximize customer lifetime value (CLV)**.
